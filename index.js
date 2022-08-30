@@ -1,16 +1,11 @@
 // Collections Functions (Array or Object)
 
-// standardizeInput is a helper function to use with the functions that need to
-// work with either objects or arrays
-// It checks whether the input is an array and, if so, returns a copy of it;
-// otherwise, it uses JavaScript's Object.values method to return an array that
-// contains the values of the object's properties
-const standardizeInput = function(collection) {
+const arrayOrObject = function(collection) {
     return (collection instanceof Array) ? collection.slice() : Object.values(collection);
   }
   
   const myEach = (collection, callback) => {
-    const newCollection = standardizeInput(collection);
+    const newCollection = arrayOrObject(collection);
   
     for (let i = 0; i < newCollection.length; i++) {
       callback(newCollection[i]);
@@ -20,7 +15,7 @@ const standardizeInput = function(collection) {
   }
   
   const myMap = (collection, callback) => {
-    const newCollection = standardizeInput(collection);
+    const newCollection = arrayOrObject(collection);
   
     const newArr = [];
   
@@ -32,13 +27,8 @@ const standardizeInput = function(collection) {
   }
   
   const myReduce = (collection, callback, acc) => {
-    let newCollection = standardizeInput(collection);
-  
-    // The if statement below handles the case where no start value is passed in 
-    // for the accumulator
-    // If acc is null, it is set equal to the first value in newCollection
-    // That first value is then sliced out of newCollection since it has already
-    // been accounted for
+    let newCollection = arrayOrObject(collection);
+
     if (!acc) {
       acc = newCollection[0];
       newCollection = newCollection.slice(1);
@@ -53,7 +43,7 @@ const standardizeInput = function(collection) {
   }
   
   const myFind = (collection, predicate) => {
-    const newCollection = standardizeInput(collection);
+    const newCollection = arrayOrObject(collection);
   
     for (let i = 0; i < newCollection.length; i++) {
       if (predicate(newCollection[i])) return newCollection[i];
@@ -63,7 +53,7 @@ const standardizeInput = function(collection) {
   }
   
   const myFilter = (collection, predicate) => {
-    const newCollection = standardizeInput(collection);
+    const newCollection = arrayOrObject(collection);
   
     const newArr = [];
   
@@ -75,7 +65,7 @@ const standardizeInput = function(collection) {
   }
   
   const mySize = (collection) => {
-    const newCollection = standardizeInput(collection);
+    const newCollection = arrayOrObject(collection);
     return newCollection.length;
   }
   
